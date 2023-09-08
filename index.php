@@ -1,39 +1,11 @@
 <?php
 require_once "src/conexao-bd.php";
 require_once "src/Model/Produto.php";
+require_once "src/Repositorio/ProdutoRepositorio.php";
 
-$sql_produtos_cafe = "SELECT * FROM produtos WHERE tipo = 'café' ORDER BY preco;";
-$sql_produtos_almoco = "SELECT * FROM produtos WHERE tipo = 'almoço' ORDER BY preco;";
-
-$stmt_cafe = $pdo->query($sql_produtos_cafe);
-$stmt_almoco = $pdo->query($sql_produtos_almoco);
-
-$produtosCafe = $stmt_cafe->fetchAll(PDO::FETCH_ASSOC);
-$produtosAlmoco = $stmt_almoco->fetchAll(PDO::FETCH_ASSOC);
-
-
-$dadosCafe = array_map(function ($cafe) {
-  return new Produto(
-    $cafe['id'],
-    $cafe['tipo'],
-    $cafe['nome'],
-    $cafe['descricao'],
-    $cafe['imagem'],
-    $cafe['preco']
-  );
-}, $produtosCafe);
-
-$dadosAlmoco = array_map(function ($almoco) {
-  return new Produto(
-    $almoco['id'],
-    $almoco['tipo'],
-    $almoco['nome'],
-    $almoco['descricao'],
-    $almoco['imagem'],
-    $almoco['preco']
-  );
-}, $produtosAlmoco);
-
+$produtoRepositorio = new ProdutoRepositorio($pdo);
+$dadosCafe = $produtoRepositorio->buscarOpcoesCafe();
+$dadosAlmoco = $produtoRepositorio->buscarOpcoesAlmoco();
 ?>
 
 
