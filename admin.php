@@ -28,7 +28,7 @@ $produtos = $produtoRepositorio->buscarTodos();
 <body>
   <main>
     <section class="container-admin-banner">
-      <img src="img/logo-serenatto-horizontal.png" class="logo-admin" alt="logo-serenatto">
+      <a href="./index.php"><img src="img/logo-serenatto-horizontal.png" class="logo-admin" alt="logo-serenatto"></a>
       <h1>Admistração Serenatto</h1>
       <img class="ornaments" src="img/ornaments-coffee.png" alt="ornaments">
     </section>
@@ -52,7 +52,7 @@ $produtos = $produtoRepositorio->buscarTodos();
               <td><?= $produto->getTipo() ?></td>
               <td><?= $produto->getDescricao() ?></td>
               <td><?= $produto->getPrecoFormatado() ?></td>
-              <td><a class="botao-editar" href="editar-produto.html">Editar</a></td>
+              <td><a class="botao-editar" href="editar-produto.php?id=<?= $produto->getId() ?>">Editar</a></td>
               <td>
                 <form action="delete-produto.php" method="post">
                   <input type="hidden" name="id" value="<?= $produto->getId() ?>">
@@ -63,8 +63,8 @@ $produtos = $produtoRepositorio->buscarTodos();
           <?php endforeach; ?>
         </tbody>
       </table>
-      <a class="botao-cadastrar" href="cadastrar-produto.html">Cadastrar produto</a>
-      <form action="#" method="post">
+      <a class="botao-cadastrar" href="cadastrar-produto.php">Cadastrar produto</a>
+      <form action="gerador-pdf.php" method="post">
         <input type="submit" class="botao-cadastrar" value="Baixar Relatório" />
       </form>
     </section>

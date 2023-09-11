@@ -2,21 +2,21 @@
 
 class Produto
 {
-  private int $id;
+  private ?int $id;
   private string $tipo;
   private string $nome;
   private string $descricao;
   private string $imagem;
   private float $preco;
 
-  public function __construct(int $id, string $tipo, string $nome, string $descricao, string $imagem, float $preco)
+  public function __construct(?int $id, string $tipo, string $nome, string $descricao, float $preco, string $imagem = 'logo-serenatto.png')
   {
     $this->id = $id;
     $this->tipo = $tipo;
     $this->nome = $nome;
     $this->descricao = $descricao;
-    $this->imagem = $imagem;
-    $this->preco = $preco;
+    $this->preco = floatval($preco);
+    $this->imagem = strlen($imagem) > 3 ? $imagem : 'logo-serenatto.png';
   }
 
   public function getId(): int
@@ -42,6 +42,11 @@ class Produto
   public function getImagem(): string
   {
     return $this->imagem;
+  }
+
+  public function setImagem(string $imgName): void
+  {
+    $this->imagem = $imgName;
   }
 
   public function getImagemFormatado(): string
